@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Profile
 from django.contrib import messages
 
+
 def home(request):
     return render(request, "home.html")
 
@@ -17,8 +18,21 @@ def profile_list(request):
 
 def profile(request, pk):
     if request.user.is_authenticated:
-        user_profile = Profile.objects.get(user_id=pk)
-        return render(request, "profile.html", {"profile": user_profile})
+        profile = Profile.objects.get(user_id=pk)
+        # post form logic
+        if request.method == "POST":
+            # GET current user ID
+            current_user_profile = request.user.profile
+            # get form date
+            action = request.POST["follow"]
+            # decide to follow or not
+            if action == "unfollow":
+                current_user_profile.follows.remove(profile)
+            else:
+                current_user_profile.follows.add(profile)
+            current_user_profile.save()
+
+        return render(request, "profile.html", {"profile": profile})
     else:
         messages.warning(request, "Log in to view page!")
         return redirect("home")
