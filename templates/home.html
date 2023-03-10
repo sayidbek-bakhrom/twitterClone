@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Your Tweets</h1>
+    <h1>Today's Tweets</h1>
+
+    {% for tweet in tweets %}
+        <div class="alert alert-dark" role="alert">
+		  {{ tweet.body }}<br/>
+		  <small class="text-muted">
+		  	({{ tweet.created_at}}) By
+		  	@{{ tweet.user.username }}
+
+		  </small>
+		</div><br/><br/>
+
+    {% endfor %}
 {% endblock %}

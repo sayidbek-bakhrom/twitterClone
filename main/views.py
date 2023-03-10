@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import Profile
+from .models import Profile, Tweet
 from django.contrib import messages
 
 
 def home(request):
-    return render(request, "home.html")
+    if request.user.is_authenticated:
+        tweets = Tweet.objects.all()
+    return render(request, "home.html", {"tweets": tweets})
 
 
 def profile_list(request):
@@ -18,7 +20,8 @@ def profile_list(request):
 
 def profile(request, pk):
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user_id=pk)
+        u_profile = Profile.objects.get(user_id=pk)
+        user_tweets = Tweet.objects.get(user_id=pk)
         # post form logic
         if request.method == "POST":
             # GET current user ID
@@ -31,8 +34,11 @@ def profile(request, pk):
             else:
                 current_user_profile.follows.add(profile)
             current_user_profile.save()
-
-        return render(request, "profile.html", {"profile": profile})
+        context = {
+            "profile": u_profile,
+            "tweets": user_tweets
+        }
+        return render(request, "profile.html", context)
     else:
         messages.warning(request, "Log in to view page!")
         return redirect("home")

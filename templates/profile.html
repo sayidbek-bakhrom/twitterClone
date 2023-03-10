@@ -7,13 +7,13 @@
 			<div class="col-8">
 				<h1>{{ profile.user.username }}'s Profile</h1>
 				<br/>
-				{% if meeps %}
-					{% for meep in meeps %}
+				{% if tweets %}
+					{% for tweet in tweets %}
 						<div class="alert alert-dark" role="alert">
-						  {{ meep.body }}<br/>
+						  <strong>{{ tweet.body }}</strong><br/>
 			  				<small class="text-muted">
-			  					({{ meep.created_at}}) By
-			  					@{{ meep.user.username }}
+			  					({{ tweet.created_at}}) By
+			  					@{{ tweet.user.username }}
 
 			  				</small>
 						</div><br/><br/>
