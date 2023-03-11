@@ -10,7 +10,7 @@
 				{% if tweets %}
 					{% for tweet in tweets %}
 						<div class="alert alert-dark" role="alert">
-						  <strong>{{ tweet.body }}</strong><br/>
+						  <b>{{ tweet.body }}</b><br/>
 			  				<small class="text-muted">
 			  					({{ tweet.created_at}}) By
 			  					@{{ tweet.user.username }}
