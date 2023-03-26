@@ -5,7 +5,7 @@
 <h1>You're Already Logged In!</h1>
 
 {% else %}
-<div class="col-md-6 offset-md-3">
+
 <h1>Login</h1>
 <br/>
 <form method="POST" action="{% url 'login' %}">
@@ -24,7 +24,7 @@
   <button type="submit" class="btn btn-secondary">Submit</button>
 </form>
 
-</div>
+
 
 {% endif %}
 {% endblock %}

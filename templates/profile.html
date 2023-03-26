@@ -63,6 +63,7 @@
 
   </div>
 </div>
+                <br>
             <form method=POST>
 {% csrf_token %}
 {% if profile in user.profile.follows.all %}
@@ -78,5 +79,10 @@
 {% endif %}
 
 </form>
-<br/>
+                <br>
+            {% if request.user.id == profile.user.id %}
+                <a href="{% url "update_user" %}" class="btn btn-outline-secondary">Update Profile</a>
+
+            {% endif %}
+                <br/>
 {% endblock %}
